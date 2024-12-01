@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'next_page.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -122,6 +124,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 ListTile(
                   leading: const Icon(Icons.key),
                   title: Text(titleList[index]), //Text("Amazon"),
+                  onTap: (){ //Tapできるように。Tapされたときに行う処理
+                    print("Tapされました");
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => NextPage(titleList[index])));// next_pageに遷移する, titleListの名前を渡す、変数を入れるときはconstを消す
+                  },
                 ),
                 //線
                 const Divider( height: 0), // thickness: 5で線の太さ変更
@@ -129,8 +136,17 @@ class _MyHomePageState extends State<MyHomePage> {
             ); //ListViewはスクロール可能, Columnはできない
           }
         ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: (){ // Listに追加すればいいよね
+            titleList.add("Google");
+            print(titleList);
+            setState(() { // buildをもう一度行う（変更の反映）
+            });
+          },
+          tooltip: "Increment",
+          child: const Icon(Icons.add),
+        ),
       );
-
 
   }
 }
